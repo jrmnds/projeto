@@ -84,6 +84,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         Excluirb.setText("Excluir");
+        Excluirb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirbActionPerformed(evt);
+            }
+        });
 
         Listarb.setText("Listar");
         Listarb.addActionListener(new java.awt.event.ActionListener() {
@@ -281,6 +286,25 @@ public class Principal extends javax.swing.JFrame {
     private void EncerrarbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EncerrarbActionPerformed
         System.exit(0);
     }//GEN-LAST:event_EncerrarbActionPerformed
+
+    private void ExcluirbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirbActionPerformed
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+       
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","root","");
+            
+            Statement delete = (Statement) con.createStatement();
+            
+            String matricula = JOptionPane.showInputDialog(null,"Novo Matricula:");
+            
+            delete.executeUpdate("delete from contatos where matricula='"+matricula+"'");
+            
+           JOptionPane.showMessageDialog(null, "Deletado!");
+        }
+        catch(Exception e){
+            System.out.println("Deu Ruim!"+ e.getMessage());
+        }
+    }//GEN-LAST:event_ExcluirbActionPerformed
 
     /**
      * @param args the command line arguments
